@@ -128,3 +128,49 @@ help                      Отображает список доступных �
 - [Схема: Локальная инсталляция бэкенда](https://gitlab.dvmn.org/root/fastapi-articles/-/wikis/fastai/backend_local_installation.drawio.png)
 - [Схема: Prod инсталляция бэкенда](https://gitlab.dvmn.org/root/fastapi-articles/-/wikis/fastai/backend_prod_installation.drawio.png)
 - [Схема: Декомпозиция бэкенда по подсистемам](https://gitlab.dvmn.org/root/fastapi-articles/-/wikis/fastai/backend_decomposition.drawio.png)
+
+# Разработчикам фронтенда
+
+## Как развернуть локально
+
+Распакуйте скачанный архив [frontend.zip](https://dvmn.org/filer/canonical/1750917110/1035/) в папку `src/frontend`.
+
+Cоздайте в той же папке файл `frontend-settings.json`:
+
+```json
+{
+    "backendBaseUrl": "/frontend-api"
+}
+```
+
+В `main.py` должен быть такой код:
+
+```python
+from pathlib import Path
+
+from fastapi import FastAPI
+from fastapi.staticfiles import StaticFiles
+
+FRONTEND_DIR = Path(__file__).parent / "frontend"
+
+
+app = FastAPI()
+
+
+app.mount(
+    "/",
+    StaticFiles(directory=FRONTEND_DIR, html=True),
+    name="frontend",
+)
+
+```
+
+После того, как добавили код выше, запустите FastAPI через командную строку:
+
+```bash
+fastapi dev src/main.py
+```
+
+И перейдите по ссылке [http://localhost:8000](http://localhost:8000).
+
+ℹ️ Если при изменении настроек фронтенд не обновляется, попробуйте нажать Shift+F5 в браузере
