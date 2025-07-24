@@ -121,3 +121,10 @@ lint                      Проверяет линтерами код в реп
 format                    Автоматически исправляет форматирование кода -- порядок импортов, лишние пробелы и т.д.
 help                      Отображает список доступных команд и их описания
 ```
+
+
+## Схемы приложения FastAI:
+
+- [Схема: Локальная инсталляция бэкенда](https://gitlab.dvmn.org/root/fastapi-articles/-/wikis/fastai/backend_local_installation.drawio.png)
+- [Схема: Prod инсталляция бэкенда](https://gitlab.dvmn.org/root/fastapi-articles/-/wikis/fastai/backend_prod_installation.drawio.png)
+- [Схема: Декомпозиция бэкенда по подсистемам](https://gitlab.dvmn.org/root/fastapi-articles/-/wikis/fastai/backend_decomposition.drawio.png)
