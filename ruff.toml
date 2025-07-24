@@ -1,0 +1,97 @@
+# Exclude a variety of commonly ignored directories.
+exclude = [
+    ".bzr",
+    ".direnv",
+    ".eggs",
+    ".git",
+    ".git-rewrite",
+    ".hg",
+    ".ipynb_checkpoints",
+    ".mypy_cache",
+    ".nox",
+    ".pants.d",
+    ".pyenv",
+    ".pytest_cache",
+    ".pytype",
+    ".ruff_cache",
+    ".svn",
+    ".tox",
+    ".venv",
+    ".vscode",
+    "__pypackages__",
+    "_build",
+    "buck-out",
+    "build",
+    "dist",
+    "node_modules",
+    "site-packages",
+    "venv",
+    "env",
+    "migrations",
+]
+
+line-length = 120
+
+# Assume Python 3.9
+target-version = "py39"
+
+[lint.mccabe]
+max-complexity = 7
+
+[lint.pylint]
+max-args = 6 # Максимальное кол-во аргументов функции
+max-branches = 10 # Максимальное кол-во ветвей if/else
+max-statements = 50 # Максимальное кол-во операторов в функции
+
+[lint.per-file-ignores]
+"**/__init__.py" = ["F401"]
+"**/test*.py" = ["PLR2004", "PLR0913", "PLR0915", "C901"]
+
+[lint.isort]
+known-first-party = []
+force-single-line = false
+relative-imports-order = "closest-to-furthest"
+combine-as-imports = true
+
+[lint]
+preview = true # Enables experimental rules like E225
+select = [
+    "A", # flake8-builtins (переопределение встроенных имен)
+    "B", # flake8-bugbear -- опасные паттерны (использование x == None вместо x is None, и т.д.)
+    "C", # flake8-comprehensions (ненужный list(), ненужный dict())
+    "E", # Ошибки из pycodestyle (PEP 8)
+    "F", # Логические ошибки и потенциальные баги (неиспользуемый импорт, обращение к необъявленной переменной, и т.д.)
+    "I", # isort (сортировка импортов)
+    "W", # Предупреждения из pycodestyle (пробелы в конце строки, пустые строки, и т.д.)
+    "UP", # pyupgrade -- модернизация кода (замена type(x) == int на isinstance(x, int), и т.д.)
+    "PL", # Pylint правила (сложность функции, глобальные переменные)
+    "RET", # проверка return-ов
+    "COM", # Запятые
+]
+fixable = [
+    "E",
+    "F401",
+    "I",
+    "W",
+    "COM",
+]
+unfixable = [
+    "A",
+    "B",
+    "C",
+    "PL",
+    "RET",
+    "UP",
+]
+ignore = [
+    "RET501", # запрет на `return None` -- конфликт с mypy
+    "RET504", # лишнее определение переменной перед return
+    "B904", # Within an `except` clause, raise exceptions with `raise ... from err` or `raise ... from None`
+    "UP031", # Use format specifiers instead of percent format
+    "PLR6301", # Method could be a function, class method, or static method
+    "PLC0415", # `import` should be at the top-level of a file
+    "B008", # Do not perform function call in argument defaults
+]
+
+# Allow unused variables when underscore-prefixed.
+dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
