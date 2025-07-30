@@ -139,7 +139,7 @@ Cоздайте в той же папке файл `frontend-settings.json`:
 
 ```json
 {
-    "backendBaseUrl": "/frontend-api"
+    "backendBaseUrl": ""
 }
 ```
 
