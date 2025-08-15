@@ -108,6 +108,7 @@ dependencies = [
     { name = "editorconfig-checker" },
     { name = "fastapi", extra = ["standard"] },
     { name = "pre-commit" },
+    { name = "pydantic" },
     { name = "ruff" },
 ]
 
@@ -116,6 +117,7 @@ requires-dist = [
     { name = "editorconfig-checker", specifier = "==3.2.1" },
     { name = "fastapi", extras = ["standard"], specifier = "==0.115.12" },
     { name = "pre-commit", specifier = ">=4.2.0" },
+    { name = "pydantic", specifier = ">=2.11.7" },
     { name = "ruff", specifier = "==0.11.13" },
 ]
 
