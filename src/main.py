@@ -1,6 +1,6 @@
 import asyncio
 from pathlib import Path
-from typing import Annotated
+from typing import Annotated, Union
 
 from fastapi import Body, FastAPI, Path as pth
 from fastapi.responses import JSONResponse, StreamingResponse
@@ -50,15 +50,6 @@ mock_site_schema = {
     "updated_at": "2025-06-15T18:29:56+00:00",
 }
 
-mock_user_data = {
-    "email": "user@example.com",
-    "is_active": True,
-    "profile_id": "0",
-    "registered_at": "2025-06-15T18:29:56+00:00",
-    "updated_at": "2025-06-15T18:29:56+00:00",
-    "username": "user123",
-}
-
 
 class SiteSchemaResponse(BaseModel):
     created_at: str
@@ -77,12 +68,17 @@ class SiteSchemaResponse(BaseModel):
 
 class SiteCreate(BaseModel):
     prompt: str
-    title: SiteTitle
+    title: Union[SiteTitle, None] = None
     model_config = ConfigDict(json_schema_extra={
-        "examples": [{
-            "prompt": "Сайт любителей играть в домино",
-            "title": "Фан клуб игры в домино",
-        }],
+        "examples": [
+            {
+                "prompt": "Сайт любителей играть в домино",
+                "title": "Фан клуб игры в домино",
+            },
+            {
+                "prompt": "Сайт любителей играть в домино",
+            },
+        ],
     })
 
 
@@ -97,19 +93,20 @@ class SiteGenerate(BaseModel):
 
 @app.get("/users/me", response_model=UserProfileResponse, summary="Получить учётные данные пользователя")
 def mock_get_user_profile():
-    return JSONResponse(content=mock_user_data, status_code=200)
-
-
-@app.get("/sites/my",
-         response_model=SiteSchemaResponse,
-         summary="Получить список сгенерированных сайтов текущего пользователя")
-def mock_get_my_site():
-    return JSONResponse(content=mock_site_schema, status_code=200)
+    mock_user_schema = {
+        "email": "user@example.com",
+        "is_active": True,
+        "profile_id": "0",
+        "registered_at": "2025-06-15T18:29:56+00:00",
+        "updated_at": "2025-06-15T18:29:56+00:00",
+        "username": "user123",
+    }
+    return JSONResponse(content=mock_user_schema, status_code=200)
 
 
 @app.post("/sites/create", response_model=SiteSchemaResponse, summary="Создать сайт")
 def create_site(site_data: SiteCreate):
-    return JSONResponse(content=mock_user_data, status_code=200)
+    return JSONResponse(content=mock_site_schema, status_code=200)
 
 
 async def get_mock_site():
@@ -135,6 +132,13 @@ async def generate_site(site_id: int = pth(..., gt=0, title="ID сайта",
 
 @app.get("/sites/{site_id}", response_model=SiteSchemaResponse, summary="Получить сайт")
 def get_user(site_id: int = pth(..., gt=0, title="ID сайта", description="Должен быть положительным")):
+    return JSONResponse(content=mock_site_schema, status_code=200)
+
+
+@app.get("/sites/my",
+         response_model=SiteSchemaResponse,
+         summary="Получить список сгенерированных сайтов текущего пользователя")
+def mock_get_my_site():
     return JSONResponse(content=mock_site_schema, status_code=200)
 
 
