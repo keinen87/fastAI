@@ -41,11 +41,11 @@ SiteTitle = Annotated[
 
 mock_site_schema = {
     "created_at": "2025-06-15T18:29:56+00:00",
-    "html_code_download_url": "http://example.com/media/index.html?response-content-disposition=attachment",
-    "html_code_url": "http://example.com/media/index.html",
+    "html_code_download_url": "https://ya.ru/",
+    "html_code_url": "https://ya.ru/",
     "id": 1,
     "prompt": "Сайт любителей играть в домино",
-    "screenshot_url": "http://example.com/media/index.png",
+    "screenshot_url": "https://ya.ru/",
     "title": "Фан клуб Домино",
     "updated_at": "2025-06-15T18:29:56+00:00",
 }
