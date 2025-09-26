@@ -130,15 +130,15 @@ async def generate_site(site_id: int = pth(..., gt=0, title="ID сайта",
     )
 
 
-@app.get("/sites/{site_id}", response_model=SiteSchemaResponse, summary="Получить сайт")
-def get_user(site_id: int = pth(..., gt=0, title="ID сайта", description="Должен быть положительным")):
-    return JSONResponse(content=mock_site_schema, status_code=200)
-
-
 @app.get("/sites/my",
          response_model=SiteSchemaResponse,
          summary="Получить список сгенерированных сайтов текущего пользователя")
 def mock_get_my_site():
+    return JSONResponse(content=mock_site_schema, status_code=200)
+
+
+@app.get("/sites/{site_id}", response_model=SiteSchemaResponse, summary="Получить сайт")
+def get_user(site_id: int = pth(..., gt=0, title="ID сайта", description="Должен быть положительным")):
     return JSONResponse(content=mock_site_schema, status_code=200)
 
 
